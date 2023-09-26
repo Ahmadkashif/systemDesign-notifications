@@ -1,0 +1,44 @@
+{
+  "$schema": "https://www.krakend.io/schema/v2.4/krakend.json",
+  "version": 3,
+  "output_encoding": "json",
+  "timeout": "3000ms",
+  "cache_ttl": "300ms",
+  "disable_rest": true,
+  "name": "recipes",
+  "endpoints": [
+    {
+      "endpoint": "/repositories",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/repositories",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "https://github.com"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "input_query_strings": [
+        "page"
+      ]
+    },
+    {
+      "endpoint": "/v1/famous-selection/{id_selection}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET"
+        }
+      ]
+    }
+  ]
+}
